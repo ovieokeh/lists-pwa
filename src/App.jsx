@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Idea from './components/Idea'
 import { withFirebase } from './firebase/withFirebase'
 import './App.less'
 
 const App = props => {
   const { ideasCollection } = props.firebase
+  const ideasContainer = useRef(null)
 
   const [idea, setIdeaInput] = useState('')
   const [ideas, setIdeas] = useState([])
@@ -40,6 +41,7 @@ const App = props => {
     event.preventDefault()
 
     setIdeaInput('')
+    ideasContainer.current.scrollTop = 0 // scroll to top of container
 
     ideasCollection.add({
       idea,
@@ -52,12 +54,7 @@ const App = props => {
       return <h2 className="app__content__no-idea">Add a new Idea...</h2>
 
     return ideas.map(idea => (
-      <Idea
-        key={idea.id}
-        id={idea.id}
-        content={idea.content}
-        onDelete={onIdeaDelete}
-      />
+      <Idea key={idea.id} idea={idea} onDelete={onIdeaDelete} />
     ))
   }
 
@@ -65,7 +62,9 @@ const App = props => {
     <div className="app">
       <h1 className="app__header">Idea Box</h1>
 
-      <section className="app__content">{renderIdeas()}</section>
+      <section ref={ideasContainer} className="app__content">
+        {renderIdeas()}
+      </section>
 
       <form className="app__footer" onSubmit={addIdea}>
         <input
