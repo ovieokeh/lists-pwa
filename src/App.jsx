@@ -3,12 +3,14 @@ import Idea from './components/Idea'
 import { withFirebase } from './firebase/withFirebase'
 import './App.less'
 
-const App = ({ firebase }) => {
+const App = props => {
+  const { ideasCollection } = props.firebase
+
   const [idea, setIdeaInput] = useState('')
   const [ideas, setIdeas] = useState([])
 
   useEffect(() => {
-    const dbListener = firebase.ideasCollection.onSnapshot(({ docs }) => {
+    const dbListener = ideasCollection.onSnapshot(({ docs }) => {
       const ideasFromDB = []
 
       docs.forEach(doc => {
@@ -31,18 +33,18 @@ const App = ({ firebase }) => {
 
   const onIdeaDelete = event => {
     const id = event.target.id
-    firebase.ideasCollection.doc(id).delete()
+    ideasCollection.doc(id).delete()
   }
 
   const addIdea = event => {
     event.preventDefault()
 
-    firebase.ideasCollection
-      .add({
-        idea,
-        timestamp: new Date()
-      })
-      .then(() => setIdeaInput(''))
+    setIdeaInput('')
+
+    ideasCollection.add({
+      idea,
+      timestamp: new Date()
+    })
   }
 
   const renderIdeas = () => {

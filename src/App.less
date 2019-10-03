@@ -19,24 +19,20 @@ body {
 .app {
   display: flex;
   flex-direction: column;
-  text-align: center;
   height: 100vh;
 
   &__btn {
     padding: 0.5em;
     height: 40px;
-    width: 50px;
+    min-width: 40px;
+    background-color: @default-white;
     color: @default-white;
     font-size: 1em;
     font-weight: bolder;
     border-style: none;
     border-radius: 5px;
-    cursor: pointer;
     transition: background-color 200ms;
-    &:hover {
-      color: @default-dark;
-      background-color: #f3f3f3;
-    }
+    cursor: pointer;
   }
 
   &__header {
@@ -44,10 +40,12 @@ body {
     background-color: @default-white;
     text-transform: uppercase;
     margin: 0;
-    padding: 1em;
+    padding: 0.5em 1em;
   }
 
   &__content {
+    display: flex;
+    flex-direction: column;
     width: 50%;
     height: 100%;
     margin: auto;
@@ -56,12 +54,12 @@ body {
     &__no-idea {
       font-size: 2em;
       color: #999;
-      margin-top: 50%;
+      align-self: center;
+      margin: auto;
     }
 
     &__idea {
       display: flex;
-      justify-content: space-between;
       align-items: center;
       background-color: @default-white;
       margin: 1em 0;
@@ -73,7 +71,9 @@ body {
       }
 
       &__btn {
+        justify-self: flex-end;
         color: @danger-red;
+        margin-left: 1em;
         &:hover {
           color: @default-white;
           background-color: @danger-red;
@@ -103,6 +103,20 @@ body {
       &:hover {
         color: @success-green;
         background-color: @default-white;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .app {
+    &__content {
+      width: 80%;
+    }
+
+    &__footer {
+      &__input {
+        width: 75%;
       }
     }
   }
