@@ -1,0 +1,104 @@
+@import (css)
+  'https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600&display=swap';
+
+@import './variables.less';
+
+html,
+body {
+  box-sizing: border-box;
+  margin: 0;
+  height: 100%;
+  background-color: #f4f4f4;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Nunito Sans', sans-serif, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: 100vh;
+
+  &__btn {
+    padding: 0.5em;
+    height: 40px;
+    width: 50px;
+    color: @default-white;
+    font-size: 1em;
+    font-weight: bolder;
+    border-style: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 200ms;
+    &:hover {
+      color: @default-dark;
+      background-color: #f3f3f3;
+    }
+  }
+
+  &__header {
+    color: @default-dark;
+    background-color: @default-white;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 1em;
+  }
+
+  &__content {
+    width: 50%;
+    height: 100%;
+    margin: auto;
+    overflow-y: scroll;
+
+    &__idea {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: @default-white;
+      margin: 1em 0;
+      padding: 1em;
+      border-radius: 8px;
+
+      &__text {
+        margin: 0;
+      }
+
+      &__btn {
+        color: @danger-red;
+        &:hover {
+          color: @default-white;
+          background-color: @danger-red;
+        }
+      }
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: center;
+    justify-self: flex-end;
+    align-items: center;
+    padding: 1em;
+
+    &__input {
+      padding: 1em;
+      margin-right: 1em;
+      width: 50%;
+      border-radius: 8px;
+      border-style: none;
+      font-size: 1em;
+    }
+
+    &__submit-btn {
+      background-color: @success-green;
+      &:hover {
+        color: @success-green;
+        background-color: @default-white;
+      }
+    }
+  }
+}

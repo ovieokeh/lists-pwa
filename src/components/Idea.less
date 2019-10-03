@@ -1,0 +1,23 @@
+@import '../variables.less';
+
+.app__content__idea {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: @default-white;
+  margin: 1em 0;
+  padding: 1em;
+  border-radius: 8px;
+
+  &__text {
+    margin: 0;
+  }
+
+  &__btn {
+    color: @danger-red;
+    &:hover {
+      color: @default-white;
+      background-color: @danger-red;
+    }
+  }
+}
