@@ -6,7 +6,8 @@
   "scripts": {
     "clean": "rm dist/bundle.js",
     "start": "parcel src/index.html",
-    "build-prod": "parcel build src/index.html"
+    "build": "parcel build src/index.html --out-dir build --no-source-maps",
+    "deploy": "npm run build && firebase deploy"
   },
   "repository": {
     "type": "git",

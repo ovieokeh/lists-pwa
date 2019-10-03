@@ -2,11 +2,13 @@
   'https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600&display=swap';
 @import './variables.less';
 
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
-  box-sizing: border-box;
   margin: 0;
-  height: 100%;
   background-color: #f4f4f4;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-family: 'Nunito Sans', sans-serif, -apple-system, BlinkMacSystemFont,
@@ -16,10 +18,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html,
+body,
+#root {
+  height: 100%;
+}
+
 .app {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+  display: grid;
+  grid-template-rows: minmax(75px, 80px) 75% minmax(10%, auto);
+  grid-template-areas:
+    'header'
+    'content'
+    'footer';
+  height: 100%;
 
   &__btn {
     padding: 0.5em;
@@ -36,19 +48,23 @@ body {
   }
 
   &__header {
+    grid-area: header;
     color: @default-dark;
     background-color: @default-white;
-    text-transform: uppercase;
-    margin: 0;
+    text-transform: lowercase;
+    text-align: center;
+    height: fit-content;
     padding: 0.5em 1em;
+    margin: 0;
   }
 
   &__content {
+    grid-area: content;
+    justify-self: center;
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 50%;
-    height: 100%;
-    margin: auto;
     overflow-y: scroll;
 
     &__no-idea {
@@ -57,41 +73,19 @@ body {
       align-self: center;
       margin: auto;
     }
-
-    &__idea {
-      display: flex;
-      align-items: center;
-      background-color: @default-white;
-      margin: 1em 0;
-      padding: 1em;
-      border-radius: 8px;
-
-      &__text {
-        margin: 0;
-      }
-
-      &__btn {
-        justify-self: flex-end;
-        color: @danger-red;
-        margin-left: 1em;
-        &:hover {
-          color: @default-white;
-          background-color: @danger-red;
-        }
-      }
-    }
   }
 
   &__footer {
+    grid-area: footer;
     display: flex;
     justify-content: center;
-    justify-self: flex-end;
     align-items: center;
     padding: 1em;
+    margin-bottom: 0.5em;
 
     &__input {
       padding: 1em;
-      margin-right: 1em;
+      margin-right: 0.5em;
       width: 50%;
       border-radius: 8px;
       border-style: none;

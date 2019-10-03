@@ -63,7 +63,7 @@ const App = props => {
 
   return (
     <div className="app">
-      <h1 className="app__header">Idea Dump</h1>
+      <h1 className="app__header">Idea Box</h1>
 
       <section className="app__content">{renderIdeas()}</section>
 
