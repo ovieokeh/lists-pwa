@@ -1,14 +1,32 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Idea from './components/Idea'
 import { withFirebase } from './firebase/withFirebase'
+import * as theme from './theme'
 import './App.less'
 
 const App = props => {
   const { ideasCollection } = props.firebase
-  const ideasContainer = useRef(null)
 
+  const ideasContainer = useRef(null)
   const [idea, setIdeaInput] = useState('')
   const [ideas, setIdeas] = useState([])
+  const [currentTheme, setCurrentTheme] = useState('lightTheme')
+
+  const toggleTheme = () => {
+    const newTheme = currentTheme === 'lightTheme' ? 'darkTheme' : 'lightTheme'
+    setCurrentTheme(newTheme)
+  }
+
+  useEffect(() => {
+    const selectedTheme = theme[currentTheme]
+
+    Object.keys(selectedTheme).forEach(variable => {
+      document.documentElement.style.setProperty(
+        variable,
+        selectedTheme[variable]
+      )
+    })
+  }, [currentTheme])
 
   useEffect(() => {
     const dbListener = ideasCollection.onSnapshot(({ docs }) => {
@@ -33,12 +51,14 @@ const App = props => {
   }, [])
 
   const onIdeaDelete = event => {
-    const id = event.target.id
+    const { id } = event.target
     ideasCollection.doc(id).delete()
   }
 
   const addIdea = event => {
     event.preventDefault()
+
+    if (!idea.trim().length) return
 
     setIdeaInput('')
     ideasContainer.current.scrollTop = 0 // scroll to top of container
@@ -60,7 +80,16 @@ const App = props => {
 
   return (
     <div className="app">
-      <h1 className="app__header">Idea Box</h1>
+      <header className="app__header">
+        <h1 className="app__header__h1">Idea Box</h1>
+        <button
+          type="button"
+          className="app__btn theme-toggle"
+          onClick={toggleTheme}
+        >
+          {currentTheme === 'lightTheme' ? '🌑' : '🌕'}
+        </button>
+      </header>
 
       <section ref={ideasContainer} className="app__content">
         {renderIdeas()}

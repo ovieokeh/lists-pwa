@@ -4,7 +4,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: @default-white;
+  background-color: var(--default-white);
+  color: var(--text-color);
   border-radius: 8px;
   min-height: fit-content;
   margin: 0.5em 0;
@@ -19,11 +20,12 @@
 
   &__btn {
     justify-self: flex-end;
-    color: @danger-red !important;
+    background-color: transparent !important;
+    color: var(--danger-red) !important;
     margin-left: 1em;
     &:hover {
-      color: @default-white !important;
-      background-color: @danger-red;
+      color: var(--constant-white) !important;
+      background-color: var(--danger-red) !important;
     }
   }
 }
