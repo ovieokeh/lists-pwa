@@ -13,6 +13,7 @@ class Firebase {
         .catch(err => console.log(err))
     }
 
+    // instance variables
     this.db = FirebaseApp.firestore()
     this.ideasCollection = this.db.collection('ideas')
   }

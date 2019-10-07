@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
-import Idea from './components/Idea'
-import { withFirebase } from './firebase/withFirebase'
-import * as theme from './theme'
+import Idea from './Idea'
+import { withFirebase } from '../firebase/withFirebase'
+import * as theme from '../theme'
 import './App.less'
 
 const App = props => {
@@ -29,25 +29,25 @@ const App = props => {
   }, [currentTheme])
 
   useEffect(() => {
-    const dbListener = ideasCollection.onSnapshot(({ docs }) => {
-      const ideasFromDB = []
+    const unsubscribe = ideasCollection
+      .orderBy('timestamp', 'desc')
+      .onSnapshot(({ docs }) => {
+        const ideasFromDB = []
 
-      docs.forEach(doc => {
-        const details = {
-          id: doc.id,
-          content: doc.data().idea,
-          timestamp: doc.data().timestamp
-        }
+        docs.forEach(doc => {
+          const details = {
+            id: doc.id,
+            content: doc.data().idea,
+            timestamp: doc.data().timestamp
+          }
 
-        ideasFromDB.push(details)
+          ideasFromDB.push(details)
+        })
+
+        setIdeas(ideasFromDB)
       })
 
-      ideasFromDB.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1))
-
-      setIdeas(ideasFromDB)
-    })
-
-    return () => dbListener()
+    return () => unsubscribe()
   }, [])
 
   const onIdeaDelete = event => {
@@ -55,7 +55,7 @@ const App = props => {
     ideasCollection.doc(id).delete()
   }
 
-  const addIdea = event => {
+  const onIdeaAdd = event => {
     event.preventDefault()
 
     if (!idea.trim().length) return
@@ -95,7 +95,7 @@ const App = props => {
         {renderIdeas()}
       </section>
 
-      <form className="app__footer" onSubmit={addIdea}>
+      <form className="app__footer" onSubmit={onIdeaAdd}>
         <input
           type="text"
           className="app__footer__input"

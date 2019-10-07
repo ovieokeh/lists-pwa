@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm dist/bundle.js",
     "start": "parcel public/index.html",
-    "build": "parcel build public/index.html --out-dir build --no-source-maps",
+    "build": "parcel build public/index.html --out-dir build --no-source-maps --no-content-hash",
     "deploy": "npm run build && firebase deploy"
   },
   "repository": {
@@ -30,13 +30,6 @@
     "react-dom": "^16.10.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/preset-env": "^7.6.2",
-    "@babel/preset-react": "^7.0.0",
-    "dotenv": "^8.1.0",
-    "eslint": "^6.5.1",
-    "eslint-config-prettier": "^6.3.0",
-    "eslint-plugin-prettier": "^3.1.1",
     "less": "^3.10.3",
     "parcel-bundler": "^1.12.3",
     "prettier": "^1.18.2"
